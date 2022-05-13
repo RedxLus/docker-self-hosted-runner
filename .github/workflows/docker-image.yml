@@ -13,9 +13,11 @@ jobs:
       with:
         username: redxlus
         password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Get TAG
+      run: export ACTION_RUNNER_VERSION=$(curl --silent "https://api.github.com/repos/actions/runner/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c 2-)
     - name: Build the Docker image
       run: |
         docker build . --tag redxlus/docker-self-hosted-runner:latest
-        docker tag redxlus/docker-self-hosted-runner:latest redxlus/docker-self-hosted-runner:$(date +%Y-%B)
+        docker tag redxlus/docker-self-hosted-runner:latest redxlus/docker-self-hosted-runner:${ACTION_RUNNER_VERSION}
     - name: Push the Docker image
       run: docker push redxlus/docker-self-hosted-runner --all-tags
