@@ -13,11 +13,16 @@ jobs:
       with:
         username: redxlus
         password: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Build the Docker image
+    - name: Build the Docker image main
       run: |
         ACTION_RUNNER_VERSION=$(curl --silent "https://api.github.com/repos/actions/runner/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c 2-)
         cd ./main
         docker build . --tag redxlus/docker-self-hosted-runner:latest
         docker tag redxlus/docker-self-hosted-runner:latest redxlus/docker-self-hosted-runner:${ACTION_RUNNER_VERSION}
+    - name: Build the Docker image selenium-chrome
+      run: |
+        ACTION_RUNNER_VERSION=$(curl --silent "https://api.github.com/repos/actions/runner/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c 2-)
+        cd ./selenium-chrome
+        docker build . --tag redxlus/docker-self-hosted-runner:${ACTION_RUNNER_VERSION}-selenium-chrome
     - name: Push the Docker image
       run: docker push redxlus/docker-self-hosted-runner --all-tags
