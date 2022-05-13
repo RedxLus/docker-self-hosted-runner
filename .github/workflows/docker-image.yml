@@ -14,6 +14,8 @@ jobs:
         username: redxlus
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build the Docker image
-      run: docker build . --tag redxlus/docker-self-hosted-runner:$(date +%s)
+      run: |
+        docker build . --tag redxlus/docker-self-hosted-runner:latest
+        docker tag redxlus/docker-self-hosted-runner:$(date +%Y-%B) redxlus/docker-self-hosted-runner:latest
     - name: Push the Docker image
       run: docker push redxlus/docker-self-hosted-runner:$(date +%s)
