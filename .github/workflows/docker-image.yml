@@ -16,6 +16,6 @@ jobs:
     - name: Build the Docker image
       run: |
         docker build . --tag redxlus/docker-self-hosted-runner:latest
-        docker tag redxlus/docker-self-hosted-runner:$(date +%Y-%B) redxlus/docker-self-hosted-runner:latest
+        docker tag redxlus/docker-self-hosted-runner:latest redxlus/docker-self-hosted-runner:$(date +%Y-%B)
     - name: Push the Docker image
-      run: docker push redxlus/docker-self-hosted-runner:$(date +%s)
+      run: docker push redxlus/docker-self-hosted-runner --all-tags
