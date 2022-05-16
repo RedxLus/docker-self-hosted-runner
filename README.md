@@ -41,7 +41,7 @@ services:
     image: redxlus/docker-self-hosted-runner:latest
     restart: always
     environment:
-      - PERSONAL_ACCESS_TOKEN="ghp_23123122313123123"
-      - REPO="RedxLus/docker-self-hosted-runner"
+      - PERSONAL_ACCESS_TOKEN=ghp_23123122313123123
+      - REPO=RedxLus/docker-self-hosted-runner
 ```
       
