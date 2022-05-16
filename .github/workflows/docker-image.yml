@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ACTION_RUNNER_VERSION: $(curl --silent "https://api.github.com/repos/actions/runner/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c 2-)
     steps:
     - uses: actions/checkout@v3
     - name: Login the Docker image
@@ -15,14 +17,16 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build the Docker image main
       run: |
-        ACTION_RUNNER_VERSION=$(curl --silent "https://api.github.com/repos/actions/runner/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c 2-)
         cd ./main
         docker build . --tag redxlus/docker-self-hosted-runner:latest
-        docker tag redxlus/docker-self-hosted-runner:latest redxlus/docker-self-hosted-runner:${ACTION_RUNNER_VERSION}
+        docker tag redxlus/docker-self-hosted-runner:latest redxlus/docker-self-hosted-runner:${{ env.ACTION_RUNNER_VERSION }}
     - name: Build the Docker image selenium-chrome
       run: |
-        ACTION_RUNNER_VERSION=$(curl --silent "https://api.github.com/repos/actions/runner/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c 2-)
         cd ./selenium-chrome
-        docker build . --tag redxlus/docker-self-hosted-runner:${ACTION_RUNNER_VERSION}-selenium-chrome
+        docker build . --tag redxlus/docker-self-hosted-runner:${{ env.ACTION_RUNNER_VERSION }}-selenium-chrome
+    - name: Build the Docker image selenium-chrome-mysqlclient
+      run: |
+        cd ./selenium-chrome-mysqlclient
+        docker build . --tag redxlus/docker-self-hosted-runner:${{ env.ACTION_RUNNER_VERSION }}-selenium-chrome-mysqlclient
     - name: Push the Docker image
       run: docker push redxlus/docker-self-hosted-runner --all-tags
