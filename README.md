@@ -4,9 +4,9 @@
 
 ## From DockerHub
 
-Use this Docker container to run as many Github runners as you need.
+Use this Docker container to run as many Github runners as you need. Is update everyday so always have the new version of Github runner.
 
-Just check: https://hub.docker.com/repository/docker/redxlus/docker-self-hosted-runner and take a look in this repository to the dirs MAIN and SELENIUM-CHROME to check each Dockerfile.
+Just check: https://hub.docker.com/repository/docker/redxlus/docker-self-hosted-runner and take a look in this repository to the dirs MAIN , SELENIUM-CHROME and SELENIUM-CHROME-MYSQL to check each Dockerfile.
 
 Now you can pull the image from the DockerHub: 
 
@@ -14,11 +14,15 @@ Now you can pull the image from the DockerHub:
 
 Or if want specific version: 
 
-``docker pull redxlus/docker-self-hosted-runner:2.291.1``
+``docker pull redxlus/docker-self-hosted-runner:2.292.0``
 
 Or if want the version of GitHub Runner with Chrome + ChromeDriver + Selenium to use for QA: 
 
-``docker pull redxlus/docker-self-hosted-runner:2.291.1-selenium-chrome``
+``docker pull redxlus/docker-self-hosted-runner:2.292.0-selenium-chrome``
+
+Or if want the version of GitHub Runner with Chrome + ChromeDriver + Selenium + client MySQL to use for QA: 
+
+``docker pull redxlus/docker-self-hosted-runner:2.292.0-selenium-chrome-mysqlclient``
 
 ## How to run docker container Github runner
 
