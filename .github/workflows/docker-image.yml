@@ -24,13 +24,16 @@ jobs:
       run: |
         cd ./main
         docker build . --tag $THIS_REPO:${{ env.ACTION_RUNNER_VERSION }} --tag $THIS_REPO:latest
+        docker push $THIS_REPO --all-tags
     - name: Build the Docker image selenium-chrome
       run: |
         cd ./selenium-chrome
         docker build . --tag $THIS_REPO:${{ env.ACTION_RUNNER_VERSION }}-selenium-chrome --tag $THIS_REPO:latest-selenium-chrome
+        docker push $THIS_REPO --all-tags
     - name: Build the Docker image selenium-chrome-mysqlclient
       run: |
         cd ./selenium-chrome-mysqlclient
         docker build . --tag $THIS_REPO:${{ env.ACTION_RUNNER_VERSION }}-selenium-chrome-mysqlclient --tag $THIS_REPO:latest-selenium-chrome-mysqlclient
+        docker push $THIS_REPO --all-tags
     - name: Push all the Docker image
       run: docker push $THIS_REPO --all-tags
