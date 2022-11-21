@@ -1,11 +1,13 @@
 FROM python:3.9.12-slim-bullseye
 
-RUN apt-get update -yqq && apt-get install -yqq curl wget git gnupg unzip jq
+RUN apt-get update -yqq && \
+        apt-get install -yqq curl wget git gnupg unzip jq
 
 # Install Github Runner
-ENV RUNNER_ALLOW_RUNASROOT="1"
+ENV RUNNER_ALLOW_RUNASROOT=""
 ENV REPO=""
 ENV PERSONAL_ACCESS_TOKEN=""
+ENV EPHEMERAL=""
 ENV DIR="/actions-runner"
 
 RUN mkdir ${DIR}

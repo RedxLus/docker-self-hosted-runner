@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: "0 1 * * *"
   workflow_dispatch:
+
+env:
+  THIS_REPO: "redxlus/docker-self-hosted-runner"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,15 +23,14 @@ jobs:
     - name: Build the Docker image main
       run: |
         cd ./main
-        docker build . --tag redxlus/docker-self-hosted-runner:latest
-        docker tag redxlus/docker-self-hosted-runner:latest redxlus/docker-self-hosted-runner:${{ env.ACTION_RUNNER_VERSION }}
+        docker build . --tag $THIS_REPO:${{ env.ACTION_RUNNER_VERSION }} --tag $THIS_REPO:latest
     - name: Build the Docker image selenium-chrome
       run: |
         cd ./selenium-chrome
-        docker build . --tag redxlus/docker-self-hosted-runner:${{ env.ACTION_RUNNER_VERSION }}-selenium-chrome
+        docker build . --tag $THIS_REPO:${{ env.ACTION_RUNNER_VERSION }}-selenium-chrome --tag $THIS_REPO:latest-selenium-chrome
     - name: Build the Docker image selenium-chrome-mysqlclient
       run: |
         cd ./selenium-chrome-mysqlclient
-        docker build . --tag redxlus/docker-self-hosted-runner:${{ env.ACTION_RUNNER_VERSION }}-selenium-chrome-mysqlclient
-    - name: Push the Docker image
-      run: docker push redxlus/docker-self-hosted-runner --all-tags
+        docker build . --tag $THIS_REPO:${{ env.ACTION_RUNNER_VERSION }}-selenium-chrome-mysqlclient --tag $THIS_REPO:latest-selenium-chrome-mysqlclient
+    - name: Push all the Docker image
+      run: docker push $THIS_REPO --all-tags

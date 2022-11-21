@@ -1,4 +1,4 @@
-FROM redxlus/docker-self-hosted-runner:latest
+FROM redxlus/docker-self-hosted-runner:latest-selenium-chrome
 
 # Install Google Chrome
 RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - &&\
