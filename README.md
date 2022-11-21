@@ -26,10 +26,15 @@ Or if want the version of GitHub Runner with Chrome + ChromeDriver + Selenium + 
 
 ## How to run docker container Github runner
 
-Now to run MUST specify 2 vars: PERSONAL_ACCESS_TOKEN and REPO.
+Now to run MUST specify 2 vars: PERSONAL_ACCESS_TOKEN and REPO. And have others optionals.
 
-* **PERSONAL_ACCESS_TOKEN**: To get this go enter in your account in Github. Go to [Settings](https://github.com/settings/profile). Go to [Developer settings](https://github.com/settings/apps). Go to [Personal access tokens](https://github.com/settings/tokens). And generate new token with the Scope of Repo.
-* **REPO**: Is your Github user, a slash and your public or private repo. For example my Github user is RedxLus and this repository is docker-self-hosted-runner so both will be "RedxLus/docker-self-hosted-runner".
+| Environment Variable | Description | MUST specify or OPTIONAL |
+| --- | --- | --- |
+| `PERSONAL_ACCESS_TOKEN` | To get this go enter in your account in Github. Go to [Settings](https://github.com/settings/profile). Go to [Developer settings](https://github.com/settings/apps). Go to [Personal access tokens](https://github.com/settings/tokens). And generate new token with the Scope of Repo. | MUST specify |
+| `REPO` | Is your Github user, a slash and your public or private repo. For example my Github user is RedxLus and this repository is docker-self-hosted-runner so both will be "RedxLus/docker-self-hosted-runner". | MUST specify |
+| `RUNNER_ALLOW_RUNASROOT` | By default this runner runs without root access so you need to set up `RUNNER_ALLOW_RUNASROOT=1` if want to exec comands with sudo. | OPTIONAL |
+| `EPHEMERAL` | By default this runner is ephemeral, run 1 single job and automatically unregistered. If want normal runners you need to set up `EPHEMERAL="false"` | OPTIONAL |
+
 
 So when do a docker run must look like:
 
