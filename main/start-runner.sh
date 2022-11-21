@@ -13,6 +13,9 @@ REG_TOKEN=$(curl -sX POST -H "Authorization: token ${PERSONAL_ACCESS_TOKEN}" htt
 if [[ "$EPHEMERAL" == "false" ]];
 then
     ./config.sh --disableupdate --unattended --url https://github.com/${REPO} --token ${REG_TOKEN}
+else
+    ./config.sh --disableupdate --unattended --url https://github.com/${REPO} --token ${REG_TOKEN} --ephemeral
+fi
 
     cleanup() {
         echo "Removing runner..."
@@ -23,6 +26,3 @@ then
     trap 'cleanup; exit 143' TERM
 
     ./run.sh & wait $!
-else
-    ./config.sh --disableupdate --unattended --url https://github.com/${REPO} --token ${REG_TOKEN} --ephemeral
-fi
