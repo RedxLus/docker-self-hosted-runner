@@ -1,6 +1,6 @@
 # Docker self-hosted Runner
 
-
+![CI/CD workflow](https://github.com/RedxLus/docker-self-hosted-runner/actions/workflows/docker-image.yml/badge.svg)
 
 ## From DockerHub
 
